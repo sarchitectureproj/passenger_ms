@@ -1,0 +1,21 @@
+{
+  "name": "passenger_ms",
+  "version": "1.0.0",
+  "description": "Passanger API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "api",
+    "restful",
+    "json"
+  ],
+  "author": "Juan Sebastian Alcina",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
+    "mongoose": "^5.5.10"
+  }
+}

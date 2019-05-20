@@ -1,0 +1,234 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Microservicio para el Pasajero
+  description: Express + MongoDB
+  license:
+    name: Software Architecture 2019-I
+host: 192.168.99.108:4002
+basePath: /api
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /passenger:
+    post:
+      summary: Creates a new passenger member
+      operationId: createPassenger
+      parameters:
+        - name: passenger
+          in: body
+          required: true
+          description: Passenger Object
+          schema:
+            $ref: '#/definitions/PassengerInput'
+      responses:
+        '201':
+          description: Created
+          schema:
+            $ref: '#/definitions/SinglePassenger'
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/GenericError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericError'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/FieldError'
+    get:
+      summary: Returns all passenger members
+      operationId: getAllPassenger
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/PassengerList'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericError'
+
+  /passenger/{id}:
+    get:
+      summary: Returns a passenger with the given id
+      operationId: getPassengerbyId
+      parameters:
+        - name: id
+          in: path
+          description: The id of the passenger member to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/SinglePassenger'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericError'
+        '400':
+            description: Bad Request
+            schema:
+              $ref: '#/definitions/GenericError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericError'
+
+    put:
+      summary: Updates a passenger member with the given id
+      operationId: updatePassenger
+      parameters:
+        - name: id
+          in: path
+          description: The id of the passenger member to be updated
+          required: true
+          type: integer
+        - name: passenger
+          in: body
+          required: true
+          description: Passenger Object
+          schema:
+            $ref: '#/definitions/PassengerInput'
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/SinglePassenger'  
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericError'
+        '400':
+            description: Bad Request
+            schema:
+              $ref: '#/definitions/GenericError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericError'
+        '422':
+          description: Unprocessable Entity
+          schema:
+            $ref: '#/definitions/FieldError'
+
+    delete:
+      summary: Deletes a Passenger member with the given id
+      operationId: deletePassenger
+      parameters:
+        - name: id
+          in: path
+          description: The id of the passenger member to be deleted
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/GenericError'
+        '400':
+            description: Bad Request
+            schema:
+              $ref: '#/definitions/GenericError'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/GenericError'
+definitions:
+
+  Passenger:
+    type: object
+    properties:
+      first_name:
+        type: string
+      last_name:
+        type: string
+      age:
+        type: integer
+      gender:
+        type: string
+      email:
+        type: string
+      phone_number:
+        type: string
+      birthdate:
+        type: string
+      occupation:
+        type: string
+      nationality:
+        type: string
+      native_language:
+        type: string
+        
+  PassengerInput:
+    type: object
+    properties:
+      passenger:
+        type: object
+        properties:
+          first_name:
+            type: string
+          last_name:
+            type: string
+          age:
+            type: integer
+          gender:
+            type: string
+          email:
+            type: string
+          phone_number:
+            type: string
+          birthdate:
+            type: string
+          occupation:
+            type: string
+          nationality:
+            type: string
+          native_language:
+            type: string
+            
+  PassengerList:
+    type: object
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Passenger'
+          
+  SinglePassenger:
+    type: object
+    properties:
+      data:
+        $ref: '#/definitions/Passenger'
+
+# Errors
+  GenericError:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          detail:
+            type: string
+  FieldError:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          field:
+            type: array
+            items:
+              type: string

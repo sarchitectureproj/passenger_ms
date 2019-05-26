@@ -9,9 +9,9 @@ var _express = _interopRequireWildcard(require("express"));
 
 var _database = require("./database");
 
-var _index = _interopRequireDefault(require("../routes/index.routes"));
+var _index = _interopRequireDefault(require("./routes/index.routes"));
 
-var _passengers = _interopRequireDefault(require("../routes/passengers.routes"));
+var _passengers = _interopRequireDefault(require("./routes/passengers.routes"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 

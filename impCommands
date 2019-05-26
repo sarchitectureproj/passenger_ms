@@ -1,5 +1,0 @@
-systemctl start mongodb.service
-mongo
-
-sudo lsof -i tcp:4002
-kill -9 9845

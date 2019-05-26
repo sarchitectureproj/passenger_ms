@@ -1,0 +1,20 @@
+version: '2'
+services:
+  passenger-ms:
+    build: ./
+    links:
+      - passenger-db
+    ports:
+      - 4002:4002
+    depends_on:
+      - passenger-db
+  passenger-db:
+    image: mongo
+    command: mongod --port 27017
+    expose:
+      - "27017"
+    volumes:
+        - mongodata:/data/db
+
+volumes:
+  mongodata:

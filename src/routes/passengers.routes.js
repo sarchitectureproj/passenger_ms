@@ -31,10 +31,7 @@ router.post('/', async (req, res) => {
 		native_language : req.body.native_language	
 	};
         const result = await db.collection(collection).insertOne(passenger);
-        res.json({
-		message: 'Passanger created',
-		result
-	});
+        res.json(result.ops[0]);
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }
@@ -57,10 +54,7 @@ router.put('/:id', async (req, res) => {
 	};
     try {
         const result = await db.collection(collection).updateOne({ _id: ObjectID(id) }, { $set: passenger });
-        res.json({
-		message: 'Passanger updated',
-		result
-	});
+        res.json("Passenger Updated");
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }
@@ -83,10 +77,7 @@ router.delete('/:id', async (req, res) => {
     const db = req.app.locals.database;
     try {
         const result = await db.collection(collection).remove({ _id: ObjectID(id) })
-        res.json({
-            message: `The object ${id} was deleted`,
-            result: result
-        })
+        res.json('Passenger deleted succesfully');
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }

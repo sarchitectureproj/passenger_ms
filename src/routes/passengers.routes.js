@@ -54,7 +54,7 @@ router.put('/:id', async (req, res) => {
 	};
     try {
         const result = await db.collection(collection).updateOne({ _id: ObjectID(id) }, { $set: passenger });
-        res.json("Passenger Updated");
+        res.json('Passenger updated succesfully');
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }
